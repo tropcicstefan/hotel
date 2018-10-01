@@ -22,7 +22,7 @@ namespace hotel.Controllers.ApiControllers
         // GET: api/Gosts
         public IEnumerable<GostDto> GetGosts()
         {
-            return db.Gosts.ToList().Select(Mapper.Map<Gost, GostDto>);
+            return db.Gosts.Select(Mapper.Map<Gost, GostDto>).ToList();
         }
 
         // GET: api/Gosts/5
@@ -40,18 +40,14 @@ namespace hotel.Controllers.ApiControllers
 
         // PUT: api/Gosts/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutGost(int id, GostDto gostDto)
+        public IHttpActionResult PutGost(GostDto gostDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != gostDto.ID)
-            {
-                return BadRequest("Wrong id");
-            }
-            Gost gost = db.Gosts.SingleOrDefault(g => g.ID == id);
+            Gost gost = db.Gosts.SingleOrDefault(g => g.ID == gostDto.ID);
 
             if (gost is null)
             {

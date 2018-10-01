@@ -9,6 +9,8 @@ namespace hotel.DTO
     public class ElementPonudeDto
     {
         [Required]
+        public int ID { get; set; }
+        [Required]
         public int JedinicnaCijena { get; set; }
         [Required]
         [StringLength(255)]

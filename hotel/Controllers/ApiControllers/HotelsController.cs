@@ -23,7 +23,7 @@ namespace hotel.Controllers.ApiControllers
         // GET: api/Hotels
         public IEnumerable<HotelDto> GetHotels()
         {
-            return db.Hotels.ToList().Select(Mapper.Map<Hotel, HotelDto>);
+            return db.Hotels.Select(Mapper.Map<Hotel, HotelDto>).ToList();
         }
 
         // GET: api/Hotels/5
@@ -41,14 +41,14 @@ namespace hotel.Controllers.ApiControllers
 
         // PUT: api/Hotels/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutHotel(int id, HotelDto hotelDto)
+        public IHttpActionResult PutHotel(HotelDto hotelDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Hotel hotel = db.Hotels.SingleOrDefault(h => h.ID == id);
+            Hotel hotel = db.Hotels.SingleOrDefault(h => h.ID == hotelDto.ID);
 
             if(hotel is null)
             {

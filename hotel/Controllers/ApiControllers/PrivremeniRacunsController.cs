@@ -22,7 +22,7 @@ namespace hotel.Controllers.ApiControllers
         // GET: api/PrivremeniRacuns
         public IEnumerable<PrivremeniRacunDto> GetPrivremeniRacuns()
         {
-            return db.PrivremeniRacuns.ToList().Select(Mapper.Map<PrivremeniRacun, PrivremeniRacunDto>);
+            return db.PrivremeniRacuns.Select(Mapper.Map<PrivremeniRacun, PrivremeniRacunDto>).ToList();
         }
 
         // GET: api/PrivremeniRacuns/5
@@ -40,19 +40,16 @@ namespace hotel.Controllers.ApiControllers
 
         // PUT: api/PrivremeniRacuns/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPrivremeniRacun(int id, PrivremeniRacunDto privremeniRacunDto)
+        public IHttpActionResult PutPrivremeniRacun(PrivremeniRacunDto privremeniRacunDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != privremeniRacunDto.ID)
-            {
-                return BadRequest();
-            }
+            
 
-            PrivremeniRacun privremeniRacun = db.PrivremeniRacuns.Find(id);
+            PrivremeniRacun privremeniRacun = db.PrivremeniRacuns.Find(privremeniRacunDto.ID);
             if(privremeniRacun is null)
             {
                 return NotFound();

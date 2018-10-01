@@ -22,13 +22,15 @@ namespace hotel.Controllers.ApiControllers
         // GET: api/Rezervacijas
         public IEnumerable<RezervacijaDto> GetRezervacijas()
         {
-            return db.Rezervacijas.ToList().Select(Mapper.Map<Rezervacija, RezervacijaDto>);
+            return db.Rezervacijas.Select(Mapper.Map<Rezervacija, RezervacijaDto>).ToList();
         }
 
         [Route("api/TrenutacneRezervacijas")]
         public IEnumerable<RezervacijaDto> GetTrenutacneRezervacijas()
         {
-            return db.Rezervacijas.Where(x => (x.DatumOdDolaska != new DateTime(1900, 1, 1)) && ((x.DatumDoDolaska == new DateTime(1900, 1, 1)) || (x.DatumDoDolaska >= DateTime.Now))).ToList().Select(Mapper.Map<Rezervacija, RezervacijaDto>);
+            return db.Rezervacijas.Where(x => 
+            (x.DatumOdDolaska != new DateTime(1900, 1, 1)) && 
+            ((x.DatumDoDolaska == new DateTime(1900, 1, 1)) || (x.DatumDoDolaska >= DateTime.Now))).Select(Mapper.Map<Rezervacija, RezervacijaDto>).ToList();
             
         }
 
@@ -46,19 +48,16 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // PUT: api/Rezervacijas/5
+        //koristiti kod checkina rezervacije
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRezervacija(int id, RezervacijaDto rezervacijaDto)
+        public IHttpActionResult PutRezervacija(RezervacijaDto rezervacijaDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (id != rezervacijaDto.ID)
-            {
-                return BadRequest("Wrong id");
-            }
-            Rezervacija rezervacija = db.Rezervacijas.Find(id);
+                        
+            Rezervacija rezervacija = db.Rezervacijas.Find(rezervacijaDto.ID);
             if(rezervacija is null)
             {
                 return NotFound();
@@ -69,6 +68,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // POST: api/Rezervacijas
+        //rezervacija za buducnost
         [ResponseType(typeof(RezervacijaDto))]
         public IHttpActionResult PostRezervacija(RezervacijaDto rezervacijaDto)
         {
@@ -76,6 +76,8 @@ namespace hotel.Controllers.ApiControllers
             {
                 return BadRequest(ModelState);
             }
+            rezervacijaDto.DatumOdDolaska = new DateTime(1900, 1, 1);
+            rezervacijaDto.DatumDoDolaska = new DateTime(1900, 1, 1);
             Rezervacija rezervacija = Mapper.Map<RezervacijaDto, Rezervacija>(rezervacijaDto);
 
             db.Rezervacijas.Add(rezervacija);

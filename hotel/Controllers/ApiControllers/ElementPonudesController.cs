@@ -22,8 +22,8 @@ namespace hotel.Controllers.ApiControllers
         // GET: api/ElementPonudes
         public IEnumerable<ElementPonudeDto> GetElementPonudes()
         {
-            var pokusaj = db.ElementPonudes.ToList();
-            return db.ElementPonudes.ToList().Select(Mapper.Map<ElementPonude, ElementPonudeDto>);
+           
+            return db.ElementPonudes.Select(Mapper.Map<ElementPonude, ElementPonudeDto>).ToList();
         }
 
         // GET: api/ElementPonudes/5
@@ -41,14 +41,15 @@ namespace hotel.Controllers.ApiControllers
 
         // PUT: api/ElementPonudes/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutElementPonude(int id, ElementPonudeDto elementPonudeDto)
+        public IHttpActionResult PutElementPonude(ElementPonudeDto elementPonudeDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            
 
-            ElementPonude element = db.ElementPonudes.SingleOrDefault(e => e.ID == id);
+            ElementPonude element = db.ElementPonudes.SingleOrDefault(e => e.ID == elementPonudeDto.ID);
 
             if (element is null)
             {

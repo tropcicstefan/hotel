@@ -22,7 +22,7 @@ namespace hotel.Controllers.ApiControllers
         // GET: api/SobaTips
         public IEnumerable<SobaTipDto> GetSobaTips()
         {
-            return db.SobaTips.ToList().Select(Mapper.Map<SobaTip, SobaTipDto>);
+            return db.SobaTips.Select(Mapper.Map<SobaTip, SobaTipDto>).ToList();
         }
 
         // GET: api/SobaTips/5
@@ -48,7 +48,7 @@ namespace hotel.Controllers.ApiControllers
             }
 
 
-            SobaTip sobaTip = db.SobaTips.Find(id);
+            SobaTip sobaTip = db.SobaTips.SingleOrDefault(st => st.ID == id);
 
             if(sobaTip == null)
             {

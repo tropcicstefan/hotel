@@ -9,6 +9,8 @@ namespace hotel.DTO
     public class HotelDto
     {
         [Required]
+        public int ID { get; set; }
+        [Required]
         [StringLength(255)]
         public string Naziv { get; set; }
         [Required]

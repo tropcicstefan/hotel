@@ -15,28 +15,28 @@ using hotel.Models;
 
 namespace hotel.Controllers.ApiControllers
 {
-    public class StavkesController : ApiController
+    public class StavkePrivremenogRacunaController : ApiController
     {
         private HotelContext db = new HotelContext();
 
         // GET: api/Stavkes
         public IEnumerable<StavkeDto> GetStavkes()
         {
-            return db.Stavkes.ToList().Select(Mapper.Map<Stavke, StavkeDto>);
+            return db.Stavkes.Select(Mapper.Map<Stavke, StavkeDto>).ToList();
         }
 
-        // GET: api/Stavkes/5
-        [ResponseType(typeof(StavkeDto))]
-        public IHttpActionResult GetStavke(int id)
-        {
-            Stavke stavke = db.Stavkes.Find(id);
-            if (stavke == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Stavkes/5
+        //[ResponseType(typeof(StavkeDto))]
+        //public IHttpActionResult GetStavke(int id)
+        //{
+        //    Stavke stavke = db.Stavkes.Find(id);
+        //    if (stavke == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(Mapper.Map<Stavke, StavkeDto>(stavke));
-        }
+        //    return Ok(Mapper.Map<Stavke, StavkeDto>(stavke));
+        //}
 
         // PUT: api/Stavkes/5
         [ResponseType(typeof(void))]

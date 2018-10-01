@@ -22,7 +22,7 @@ namespace hotel.Controllers.ApiControllers
         // GET: api/Sobas
         public IEnumerable<SobaDto> GetSobas()
         {
-            return db.Sobas.ToList().Select(Mapper.Map<Soba, SobaDto>);
+            return db.Sobas.Select(Mapper.Map<Soba, SobaDto>).ToList();
         }
 
         // GET: api/Sobas/5
@@ -40,19 +40,14 @@ namespace hotel.Controllers.ApiControllers
 
         // PUT: api/Sobas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutSoba(int id, SobaDto sobaDto)
+        public IHttpActionResult PutSoba(SobaDto sobaDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
+            }            
 
-            if (id != sobaDto.ID)
-            {
-                return BadRequest("Wrong id");
-            }
-
-            Soba soba = db.Sobas.Find(id);
+            Soba soba = db.Sobas.Find(sobaDto.ID);
 
             if (soba is null)
             {
