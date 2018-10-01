@@ -20,12 +20,14 @@ namespace hotel.Controllers.ApiControllers
         private HotelContext db = new HotelContext();
 
         // GET: api/Gosts
+        [HttpGet]
         public IEnumerable<GostDto> GetGosts()
         {
             return db.Gosts.Select(Mapper.Map<Gost, GostDto>).ToList();
         }
 
         // GET: api/Gosts/5
+        [HttpGet]
         [ResponseType(typeof(GostDto))]
         public IHttpActionResult GetGost(int id)
         {
@@ -39,6 +41,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // PUT: api/Gosts/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutGost(GostDto gostDto)
         {
@@ -61,6 +64,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // POST: api/Gosts
+        [HttpPost]
         [ResponseType(typeof(GostDto))]
         public IHttpActionResult PostGost(GostDto gostDto)
         {
@@ -78,6 +82,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // DELETE: api/Gosts/5
+        [HttpDelete]
         [ResponseType(typeof(GostDto))]
         public IHttpActionResult DeleteGost(int id)
         {

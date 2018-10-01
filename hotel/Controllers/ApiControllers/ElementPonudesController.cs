@@ -20,6 +20,7 @@ namespace hotel.Controllers.ApiControllers
         private HotelContext db = new HotelContext();
 
         // GET: api/ElementPonudes
+        [HttpGet]
         public IEnumerable<ElementPonudeDto> GetElementPonudes()
         {
            
@@ -27,6 +28,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // GET: api/ElementPonudes/5
+        [HttpGet]
         [ResponseType(typeof(ElementPonudeDto))]
         public IHttpActionResult GetElementPonude(int id)
         {
@@ -40,6 +42,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // PUT: api/ElementPonudes/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutElementPonude(ElementPonudeDto elementPonudeDto)
         {
@@ -64,6 +67,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // POST: api/ElementPonudes
+        [HttpPost]
         [ResponseType(typeof(ElementPonudeDto))]
         public IHttpActionResult PostElementPonude(ElementPonudeDto elementPonudeDto)
         {
@@ -81,6 +85,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // DELETE: api/ElementPonudes/5
+        [HttpDelete]
         [ResponseType(typeof(ElementPonudeDto))]
         public IHttpActionResult DeleteElementPonude(int id)
         {

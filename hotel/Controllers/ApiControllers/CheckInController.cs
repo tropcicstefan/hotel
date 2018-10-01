@@ -16,6 +16,7 @@ namespace hotel.Controllers.ApiControllers
     {
         private HotelContext db = new HotelContext();
         //koristiti za checkin bez rezervacije
+        [HttpPost]
         [ResponseType(typeof(RezervacijaDto))]
         public IHttpActionResult PostCheckIn(RezervacijaDto rezervacijaDto)
         {
@@ -35,6 +36,7 @@ namespace hotel.Controllers.ApiControllers
         }
         //sve checkinane
         [Route("api/TrenutacniCheckIn")]
+        [HttpGet]
         public IEnumerable<RezervacijaDto> GetTrenutacniCheckIn()
         {
             return db.Rezervacijas.Where(x =>

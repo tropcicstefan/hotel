@@ -48,6 +48,7 @@ namespace hotel.Controllers.ApiControllers
 
         // PUT: api/Rezervacijas/5
         //koristiti kod checkina rezervacije
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutRezervacija(RezervacijaDto rezervacijaDto)
         {
@@ -68,6 +69,7 @@ namespace hotel.Controllers.ApiControllers
 
         // POST: api/Rezervacijas
         //rezervacija za buducnost
+        [HttpPost]
         [ResponseType(typeof(RezervacijaDto))]
         public IHttpActionResult PostRezervacija(RezervacijaDto rezervacijaDto)
         {
@@ -87,6 +89,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // DELETE: api/Rezervacijas/5
+        [HttpDelete]
         [ResponseType(typeof(Rezervacija))]
         public IHttpActionResult DeleteRezervacija(int id)
         {

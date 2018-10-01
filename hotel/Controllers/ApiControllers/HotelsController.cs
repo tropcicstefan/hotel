@@ -21,12 +21,14 @@ namespace hotel.Controllers.ApiControllers
         private HotelContext db = new HotelContext();
 
         // GET: api/Hotels
+        [HttpGet]
         public IEnumerable<HotelDto> GetHotels()
         {
             return db.Hotels.Select(Mapper.Map<Hotel, HotelDto>).ToList();
         }
 
         // GET: api/Hotels/5
+        [HttpGet]
         [ResponseType(typeof(HotelDto))]
         public IHttpActionResult GetHotel(int id)
         {
@@ -40,15 +42,16 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // PUT: api/Hotels/5
+        [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutHotel(HotelDto hotelDto)
+        public IHttpActionResult PutHotel(int id, HotelDto hotelDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Hotel hotel = db.Hotels.SingleOrDefault(h => h.ID == hotelDto.ID);
+            Hotel hotel = db.Hotels.SingleOrDefault(h => h.ID == id);
 
             if(hotel is null)
             {
@@ -62,6 +65,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // POST: api/Hotels
+        [HttpPost]
         [ResponseType(typeof(HotelDto))]
         public IHttpActionResult PostHotel(HotelDto hotelDto)
         {
@@ -81,6 +85,7 @@ namespace hotel.Controllers.ApiControllers
 
 
         // DELETE: api/Hotels/5
+        [HttpDelete]
         [ResponseType(typeof(HotelDto))]
         public IHttpActionResult DeleteHotel(int id)
         {

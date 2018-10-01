@@ -39,6 +39,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // PUT: api/SobaTips/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutSobaTip(int id, SobaTipDto sobaTipDto)
         {
@@ -62,6 +63,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // POST: api/SobaTips
+        [HttpPost]
         [ResponseType(typeof(SobaTipDto))]
         public IHttpActionResult PostSobaTip(SobaTipDto sobaTipDto)
         {
@@ -79,6 +81,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // DELETE: api/SobaTips/5
+        [HttpDelete]
         [ResponseType(typeof(SobaTipDto))]
         public IHttpActionResult DeleteSobaTip(int id)
         {

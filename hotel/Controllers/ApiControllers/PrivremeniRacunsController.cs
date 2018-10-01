@@ -39,6 +39,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // PUT: api/PrivremeniRacuns/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPrivremeniRacun(PrivremeniRacunDto privremeniRacunDto)
         {
@@ -63,6 +64,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // POST: api/PrivremeniRacuns
+        [HttpPost]
         [ResponseType(typeof(PrivremeniRacunDto))]
         public IHttpActionResult PostPrivremeniRacun(PrivremeniRacunDto privremeniRacunDto)
         {
@@ -79,6 +81,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // DELETE: api/PrivremeniRacuns/5
+        [HttpDelete]
         [ResponseType(typeof(PrivremeniRacun))]
         public IHttpActionResult DeletePrivremeniRacun(int id)
         {

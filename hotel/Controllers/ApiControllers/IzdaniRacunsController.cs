@@ -21,6 +21,7 @@ namespace hotel.Controllers.ApiControllers
 
 
         // GET: api/IzdaniRacuns/5(id rezervacije)
+        [HttpGet]
         [ResponseType(typeof(PrikazRacunaViewModelDto))]
         public IHttpActionResult GetIzdaniRacun(int id)
         {
