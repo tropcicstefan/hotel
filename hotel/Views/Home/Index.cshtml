@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="row">
+    <div class="col-md-4 ">
+        <h2>Rezerviraj sobu</h2>
+        <p>Trebaš rezervirati sobu?</p>
+        <p class="ind">@Html.ActionLink("Rezerviraj »", "GostRezervacija", new { controller = "Rezervacija" }, new { @class = "btn btn-default" }) </p>
+    </div>
+    <div class="col-md-4 ">
+        <h2>Check-in</h2>
+        <p>Došao je novi gost? Upiši ga </p>
+        <p class="ind">@Html.ActionLink("Ima rezervaciju »", "OdaberiRezervaciju", new { controller = "CheckIn" }, new { @class = "btn btn-default" })        @Html.ActionLink("Bez rezervacije »", "NapraviCheckIn", new { controller = "CheckIn" }, new { @class = "btn btn-default" })</p>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-md-4 ">
+        <h2>Upisivanje troška</h2>
+        <p>Klijent je potrošio nešto? Upiši ovdje!</p>
+        <p class="ind">@Html.ActionLink("Trošak »", "OdaberiRezervaciju", new { controller = "PrivremeniRacun" }, new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4 ">
+        <h2>Izdavanje računa</h2>
+        <p>Gost je spreman za odlazak(nagovori ga da ostane). Ako nisi uspio izdaj mu račun</p>
+        <p class="ind">@Html.ActionLink("Račun »", "Index", new { controller = "Racun" }, new { @class = "btn btn-default" })</p>
+    </div>
+</div>

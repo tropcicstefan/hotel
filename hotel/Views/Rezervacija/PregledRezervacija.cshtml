@@ -1,0 +1,36 @@
+﻿@model hotel.Models.Rezervacija
+@{
+    ViewBag.Title = "PregledRezervacija";
+}
+
+<h2>Pregled rezervacije</h2>
+
+
+@using (Html.BeginForm("SpremanjeRezervacija", "Rezervacija"))
+{
+    @Html.AntiForgeryToken()
+    @Html.LabelFor(m => m.GostID)
+    <p>@Model.GostID</p>
+    @Html.LabelFor(m => m.SobaID)
+    <p>@Model.SobaID</p>
+    @Html.LabelFor(m => m.DatumOd)
+    <p>@Model.DatumOd</p>
+    @Html.LabelFor(m => m.DatumDo)
+    <p>@Model.DatumDo</p>
+
+    @Html.LabelFor(m => m.Popust)
+    @Html.EditorFor(m => m.Popust)
+    @Html.ValidationMessageFor(m => m.Popust)
+
+    @Html.HiddenFor(m => m.GostID)
+    @Html.HiddenFor(m => m.DatumOd)
+    @Html.HiddenFor(m => m.DatumDo)
+    @Html.HiddenFor(m => m.SobaID)
+    @Html.HiddenFor(m => m.DatumOdDolaska)
+    @Html.HiddenFor(m => m.DatumDoDolaska)
+
+
+
+ 
+    <button type="submit">Završi</button>
+}

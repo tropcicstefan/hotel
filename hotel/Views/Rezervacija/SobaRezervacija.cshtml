@@ -1,0 +1,65 @@
+﻿@model hotel.ViewModels.SobaRezervacija
+@{
+    ViewBag.Title = "SobaRezervacija";
+}
+
+<h2>Odabir slobodne sobe</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.SlobodneSobas.First().Hotel.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.SlobodneSobas.First().SobaTip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.SlobodneSobas.First().ID)
+        </th>
+        <th></th>
+    </tr>
+   
+    @foreach (var item in Model.SlobodneSobas)
+
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hotel.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SobaTip.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @using (Html.BeginForm("SpremanjeSobe", "Rezervacija"))
+                {
+                    @Html.HiddenFor(m => m.Rezervacija.GostID)
+                    @Html.HiddenFor(m => m.Rezervacija.DatumOd)
+                    @Html.HiddenFor(m => m.Rezervacija.DatumDo)
+                    @Html.HiddenFor(m => m.Rezervacija.DatumOdDolaska)
+                    @Html.HiddenFor(m => m.Rezervacija.DatumDoDolaska)
+
+                    @Html.Hidden("Rezervacija.SobaID", item.ID)
+
+
+
+                    <button type="submit">Odaberi</button>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+   
+       
+
+    </script>
+}

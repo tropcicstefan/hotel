@@ -1,0 +1,48 @@
+﻿@model hotel.ViewModels.OdaberiRezervacijuViewModel
+@{
+    ViewBag.Title = "OdaberiRezervaciju";
+}
+
+<h2>OdaberiRezervaciju</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.TrenutacneRezervacije.First().Gost.Ime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.TrenutacneRezervacije.First().Gost.Prezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.TrenutacneRezervacije.First().DatumOdDolaska)
+        </th>
+        
+
+    </tr>
+
+    @foreach (var item in Model.TrenutacneRezervacije)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gost.Ime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gost.Prezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumOdDolaska)
+            </td>
+            
+            <td>
+                @using (Html.BeginForm("OdabranaRezervacija", "Racun", new { id = item.ID }, FormMethod.Post))
+                {
+                    <button type="submit">Odaberi</button>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+

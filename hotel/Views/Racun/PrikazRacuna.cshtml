@@ -1,0 +1,90 @@
+﻿@model hotel.ViewModels.PrikazRacunaViewModel
+@{
+    ViewBag.Title = "PrikazRacuna";
+}
+@{ int total = 0; }
+<h2>PrikazRacuna</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.Stavkes.First().ElementPonude.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Stavkes.First().Kolicina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Stavkes.First().ElementPonude.JedinicnaCijena)
+        </th>
+        <th>
+            Ukupno
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.Stavkes)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ElementPonude.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kolicina)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ElementPonude.JedinicnaCijena)
+            </td>
+            <td>
+                @((item.Kolicina * item.ElementPonude.JedinicnaCijena).ToString("c"))
+
+                @{ total += (item.Kolicina * item.ElementPonude.JedinicnaCijena); }
+
+            </td>
+
+        </tr>
+    }
+    <tr>
+        <td>
+            @(Model.Rezervacija.Soba.SobaTip.Naziv)
+        </td>
+        <td>
+            @(Convert.ToInt32((Model.Rezervacija.DatumDoDolaska - Model.Rezervacija.DatumOdDolaska).TotalDays))
+        </td>
+        <td>
+            @(Model.Rezervacija.Soba.SobaTip.Cijena)
+        </td>
+        <td>
+            @{ int soba = ((Convert.ToInt32((Model.Rezervacija.DatumDoDolaska - Model.Rezervacija.DatumOdDolaska).TotalDays)) * Convert.ToInt32(Model.Rezervacija.Soba.SobaTip.Cijena));}
+            @( soba.ToString("c") )
+            @{ total += soba; }
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>
+            Ukupno
+        </td>
+        <td>
+            @(total.ToString("c"))
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>
+            Ukupno s popustom
+        </td>
+        <td>
+            @{ total *= Model.Rezervacija.Popust;}
+            @(total.ToString("c"))
+        </td>
+    </tr>
+</table>
+
+@using (Html.BeginForm("ZavrsiRacun", "Racun", Model.Rezervacija))
+{
+
+    <button type="submit" class="btn btn-default">Odaberi</button>
+}

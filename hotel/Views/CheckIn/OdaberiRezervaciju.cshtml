@@ -1,0 +1,61 @@
+﻿@model hotel.ViewModels.OdaberiRezervacijuViewModel
+@{
+    ViewBag.Title = "OdaberiRezervaciju";
+}
+
+<h2>OdaberiRezervaciju</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.TrenutacneRezervacije.First().Gost.Ime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.TrenutacneRezervacije.First().Gost.Prezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.TrenutacneRezervacije.First().DatumOd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.TrenutacneRezervacije.First().DatumDo)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.TrenutacneRezervacije)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gost.Ime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gost.Prezime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumOd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumDo)
+        </td>
+        <td>
+            @using (Html.BeginForm("CheckInRezervacije", "CheckIn"))
+            {
+                @Html.Hidden("Rezervacija.ID", item.ID)
+                @Html.Hidden("Rezervacija.GostID", item.GostID)
+                @Html.Hidden("Rezervacija.SobaID", item.SobaID)
+                @Html.Hidden("Rezervacija.DatumOd", item.DatumOd)
+                @Html.Hidden("Rezervacija.DatumDo", item.DatumDo)
+                @Html.Hidden("Rezervacija.Popust", item.Popust)
+                @Html.Hidden("Rezervacija.DatumOdDolaska", Model.DanasnjiDatum)
+                @Html.Hidden("Rezervacija.DatumDoDolaska", item.DatumDoDolaska)
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit">Odaberi</button>
+            }
+        </td>
+    </tr>
+    }
+</table>
