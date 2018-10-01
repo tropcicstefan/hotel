@@ -29,8 +29,7 @@ namespace hotel.Controllers.ApiControllers
         public IEnumerable<RezervacijaDto> GetTrenutacneRezervacijas()
         {
             return db.Rezervacijas.Where(x => 
-            (x.DatumOdDolaska != new DateTime(1900, 1, 1)) && 
-            ((x.DatumDoDolaska == new DateTime(1900, 1, 1)) || (x.DatumDoDolaska >= DateTime.Now))).Select(Mapper.Map<Rezervacija, RezervacijaDto>).ToList();
+            (x.DatumOdDolaska == new DateTime(1900, 1, 1))).Select(Mapper.Map<Rezervacija, RezervacijaDto>).ToList();
             
         }
 
