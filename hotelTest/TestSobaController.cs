@@ -143,6 +143,7 @@ namespace hotelTest
             Assert.IsNotNull(contentResult);
             Assert.IsNotNull(contentResult.Content);
             Assert.AreEqual(3, contentResult.Content.ID);
+            TestProfile.De();
         }
 
         [TestMethod]
