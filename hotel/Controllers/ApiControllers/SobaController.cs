@@ -25,14 +25,14 @@ namespace hotel.Controllers.ApiControllers
             db = context;
         }
 
-        // GET: api/Sobas
+        // GET: api/Soba
         [HttpGet]
         public IEnumerable<SobaDto> GetSobas()
         {
             return db.Sobas.Select(Mapper.Map<Soba, SobaDto>).ToList();
         }
 
-        // GET: api/Sobas/5
+        // GET: api/Soba/5
         [HttpGet]
         [ResponseType(typeof(SobaDto))]
         public IHttpActionResult GetSoba(int id)
@@ -46,7 +46,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok(Mapper.Map<Soba, SobaDto>(soba));
         }
 
-        // PUT: api/Sobas
+        // PUT: api/Soba
         [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutSoba(SobaDto sobaDto)
@@ -69,7 +69,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok();
         }
 
-        // POST: api/Sobas
+        // POST: api/Soba
         [HttpPost]
         [ResponseType(typeof(SobaDto))]
         public IHttpActionResult PostSoba(SobaDto sobaDto)
@@ -83,11 +83,10 @@ namespace hotel.Controllers.ApiControllers
 
             db.Sobas.Add(soba);
             db.SaveChanges();
-
-            return Created(new Uri(Request.RequestUri + "/" + soba.ID), sobaDto);
+            return CreatedAtRoute("DefaultApi", new { id = soba.ID }, sobaDto);
         }
 
-        // DELETE: api/Sobas/5
+        // DELETE: api/Soba/5
         [HttpDelete]
         [ResponseType(typeof(SobaDto))]
         public IHttpActionResult DeleteSoba(int id)
