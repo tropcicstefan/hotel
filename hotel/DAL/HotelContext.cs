@@ -8,7 +8,7 @@ using System.Web;
 
 namespace hotel.DAL
 {
-    public class HotelContext : DbContext
+    public class HotelContext : DbContext, IHotelContext
     {
         public HotelContext() : base("HotelDB")
         {
@@ -31,7 +31,10 @@ namespace hotel.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-
+        public void MarkAsModified(Soba item)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
 
 
 

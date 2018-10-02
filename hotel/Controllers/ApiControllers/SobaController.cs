@@ -17,7 +17,13 @@ namespace hotel.Controllers.ApiControllers
 {
     public class SobaController : ApiController
     {
-        private HotelContext db = new HotelContext();
+        private IHotelContext db = new HotelContext();
+
+        public SobaController() { }
+        public SobaController(IHotelContext context)
+        {
+            db = context;
+        }
 
         // GET: api/Sobas
         [HttpGet]
