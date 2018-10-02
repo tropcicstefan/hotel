@@ -15,18 +15,18 @@ using hotel.Models;
 
 namespace hotel.Controllers.ApiControllers
 {
-    public class GostsController : ApiController
+    public class GostController : ApiController
     {
         private HotelContext db = new HotelContext();
 
-        // GET: api/Gosts
+        // GET: api/Gost
         [HttpGet]
-        public IEnumerable<GostDto> GetGosts()
+        public IEnumerable<GostDto> GetGost()
         {
             return db.Gosts.Select(Mapper.Map<Gost, GostDto>).ToList();
         }
 
-        // GET: api/Gosts/5
+        // GET: api/Gost/5
         [HttpGet]
         [ResponseType(typeof(GostDto))]
         public IHttpActionResult GetGost(int id)
@@ -40,7 +40,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok(Mapper.Map<Gost, GostDto>(gost));
         }
 
-        // PUT: api/Gosts/5
+        // PUT: api/Gost
         [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutGost(GostDto gostDto)
@@ -63,7 +63,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok();
         }
 
-        // POST: api/Gosts
+        // POST: api/Gost
         [HttpPost]
         [ResponseType(typeof(GostDto))]
         public IHttpActionResult PostGost(GostDto gostDto)
@@ -81,7 +81,7 @@ namespace hotel.Controllers.ApiControllers
             return Created(new Uri(Request.RequestUri + "/" + gost.ID), gostDto);
         }
 
-        // DELETE: api/Gosts/5
+        // DELETE: api/Gost/5
         [HttpDelete]
         [ResponseType(typeof(GostDto))]
         public IHttpActionResult DeleteGost(int id)

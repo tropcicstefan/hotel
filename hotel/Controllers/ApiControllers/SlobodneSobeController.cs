@@ -21,6 +21,7 @@ namespace hotel.Controllers.ApiControllers
         private HotelContext db = new HotelContext();
 
         [ResponseType(typeof(SlobodneSobeDto))]
+        [HttpGet]
         public IHttpActionResult GetSlobodneSobe([FromUri]DatumiViewModelDto datumiViewModelDto)
         {
             Gost gost = db.Gosts.SingleOrDefault(g=>g.ID == datumiViewModelDto.GostID);

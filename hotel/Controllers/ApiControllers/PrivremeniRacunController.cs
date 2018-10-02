@@ -15,17 +15,19 @@ using hotel.Models;
 
 namespace hotel.Controllers.ApiControllers
 {
-    public class PrivremeniRacunsController : ApiController
+    public class PrivremeniRacunController : ApiController
     {
         private HotelContext db = new HotelContext();
 
-        // GET: api/PrivremeniRacuns
-        public IEnumerable<PrivremeniRacunDto> GetPrivremeniRacuns()
+        // GET: api/PrivremeniRacun
+        [HttpGet]
+        public IEnumerable<PrivremeniRacunDto> GetPrivremeniRacun()
         {
             return db.PrivremeniRacuns.Select(Mapper.Map<PrivremeniRacun, PrivremeniRacunDto>).ToList();
         }
 
-        // GET: api/PrivremeniRacuns/5
+        // GET: api/PrivremeniRacun/5
+        [HttpGet]
         [ResponseType(typeof(PrivremeniRacunDto))]
         public IHttpActionResult GetPrivremeniRacun(int id)
         {
@@ -38,7 +40,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok(Mapper.Map<PrivremeniRacun, PrivremeniRacunDto>(privremeniRacun));
         }
 
-        // PUT: api/PrivremeniRacuns/5
+        // PUT: api/PrivremeniRacun
         [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPrivremeniRacun(PrivremeniRacunDto privremeniRacunDto)
@@ -46,9 +48,7 @@ namespace hotel.Controllers.ApiControllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            
+            }           
 
             PrivremeniRacun privremeniRacun = db.PrivremeniRacuns.Find(privremeniRacunDto.ID);
             if(privremeniRacun is null)
@@ -63,7 +63,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok();
         }
 
-        // POST: api/PrivremeniRacuns
+        // POST: api/PrivremeniRacun
         [HttpPost]
         [ResponseType(typeof(PrivremeniRacunDto))]
         public IHttpActionResult PostPrivremeniRacun(PrivremeniRacunDto privremeniRacunDto)
@@ -80,7 +80,7 @@ namespace hotel.Controllers.ApiControllers
             return Created(new Uri(Request.RequestUri + "/" + privremeniRacun.ID), privremeniRacunDto);
         }
 
-        // DELETE: api/PrivremeniRacuns/5
+        // DELETE: api/PrivremeniRacun/5
         [HttpDelete]
         [ResponseType(typeof(PrivremeniRacun))]
         public IHttpActionResult DeletePrivremeniRacun(int id)
@@ -97,26 +97,6 @@ namespace hotel.Controllers.ApiControllers
             return Ok(Mapper.Map<PrivremeniRacun, PrivremeniRacunDto>(privremeniRacun));
         }
 
-        [ResponseType(typeof(PrivremeniRacunViewModelDto))]
-        [Route("api/StavkePrivremenogRacuna/prID/{prID}")]
-        public IHttpActionResult GetSlobodneSobe(int prID)
-        {           
-            if(db.PrivremeniRacuns.Find(prID) is null)
-            {
-                return NotFound();
-            }
-
-            var stavkes = db.Stavkes.Where(x => x.PrivremeniRacunID == prID).ToList();
-            var elementPonudes = db.ElementPonudes.ToList();
-            PrivremeniRacunViewModelDto privremeniRacunViewModelDto = new PrivremeniRacunViewModelDto()
-            {
-                Stavkes = Mapper.Map<List<Stavke>, List<StavkeDto>>(stavkes),
-                ElementPonudes = Mapper.Map<List<ElementPonude>, List<ElementPonudeDto>>(elementPonudes)
-            };
-                                 
-
-
-            return Ok(privremeniRacunViewModelDto);
-        }
+        
     }
 }

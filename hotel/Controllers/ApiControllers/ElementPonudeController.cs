@@ -15,19 +15,19 @@ using hotel.Models;
 
 namespace hotel.Controllers.ApiControllers
 {
-    public class ElementPonudesController : ApiController
+    public class ElementPonudeController : ApiController
     {
         private HotelContext db = new HotelContext();
 
-        // GET: api/ElementPonudes
+        // GET: api/ElementPonude
         [HttpGet]
-        public IEnumerable<ElementPonudeDto> GetElementPonudes()
+        public IEnumerable<ElementPonudeDto> GetElementPonude()
         {
            
             return db.ElementPonudes.Select(Mapper.Map<ElementPonude, ElementPonudeDto>).ToList();
         }
 
-        // GET: api/ElementPonudes/5
+        // GET: api/ElementPonude/5
         [HttpGet]
         [ResponseType(typeof(ElementPonudeDto))]
         public IHttpActionResult GetElementPonude(int id)
@@ -41,7 +41,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok(Mapper.Map<ElementPonude, ElementPonudeDto>(elementPonude));
         }
 
-        // PUT: api/ElementPonudes/5
+        // PUT: api/ElementPonude
         [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutElementPonude(ElementPonudeDto elementPonudeDto)
@@ -66,7 +66,7 @@ namespace hotel.Controllers.ApiControllers
 
         }
 
-        // POST: api/ElementPonudes
+        // POST: api/ElementPonude
         [HttpPost]
         [ResponseType(typeof(ElementPonudeDto))]
         public IHttpActionResult PostElementPonude(ElementPonudeDto elementPonudeDto)
@@ -84,7 +84,7 @@ namespace hotel.Controllers.ApiControllers
             return Created(new Uri(Request.RequestUri + "/" + elementPonude.ID), elementPonudeDto);
         }
 
-        // DELETE: api/ElementPonudes/5
+        // DELETE: api/ElementPonude/5
         [HttpDelete]
         [ResponseType(typeof(ElementPonudeDto))]
         public IHttpActionResult DeleteElementPonude(int id)

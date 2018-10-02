@@ -15,18 +15,20 @@ using hotel.Models;
 
 namespace hotel.Controllers.ApiControllers
 {
-    public class RezervacijasController : ApiController
+    public class RezervacijaController : ApiController
     {
         private HotelContext db = new HotelContext();
 
         // GET: api/Rezervacijas
-        public IEnumerable<RezervacijaDto> GetRezervacijas()
+        [HttpGet]
+        public IEnumerable<RezervacijaDto> GetRezervacija()
         {
             return db.Rezervacijas.Select(Mapper.Map<Rezervacija, RezervacijaDto>).ToList();
         }
 
-        [Route("api/TrenutacneRezervacijas")]
-        public IEnumerable<RezervacijaDto> GetTrenutacneRezervacijas()
+        [Route("api/TrenutacneRezervacije")]
+        [HttpGet]
+        public IEnumerable<RezervacijaDto> GetTrenutacneRezervacije()
         {
             return db.Rezervacijas.Where(x => 
             (x.DatumOdDolaska == new DateTime(1900, 1, 1))).Select(Mapper.Map<Rezervacija, RezervacijaDto>).ToList();
@@ -34,6 +36,7 @@ namespace hotel.Controllers.ApiControllers
         }
 
         // GET: api/Rezervacijas/5
+        [HttpGet]
         [ResponseType(typeof(RezervacijaDto))]
         public IHttpActionResult GetRezervacija(int id)
         {
@@ -46,7 +49,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok(Mapper.Map<Rezervacija, RezervacijaDto>(rezervacija));
         }
 
-        // PUT: api/Rezervacijas/5
+        // PUT: api/Rezervacija
         //koristiti kod checkina rezervacije
         [HttpPut]
         [ResponseType(typeof(void))]
@@ -67,8 +70,9 @@ namespace hotel.Controllers.ApiControllers
             return Ok();
         }
 
-        // POST: api/Rezervacijas
+        // POST: api/Rezervacija
         //rezervacija za buducnost
+        //vjerojatno treba provjera jel soba slobodna ali ako se koristi api za slobodne sobe ne bi trebalo bit problema
         [HttpPost]
         [ResponseType(typeof(RezervacijaDto))]
         public IHttpActionResult PostRezervacija(RezervacijaDto rezervacijaDto)
@@ -84,11 +88,13 @@ namespace hotel.Controllers.ApiControllers
             db.Rezervacijas.Add(rezervacija);
             db.SaveChanges();
 
+            rezervacijaDto.ID = rezervacija.ID;
+
             return Created(new Uri(Request.RequestUri + "/" + rezervacija.ID), rezervacijaDto);
 
         }
 
-        // DELETE: api/Rezervacijas/5
+        // DELETE: api/Rezervacija/5
         [HttpDelete]
         [ResponseType(typeof(Rezervacija))]
         public IHttpActionResult DeleteRezervacija(int id)

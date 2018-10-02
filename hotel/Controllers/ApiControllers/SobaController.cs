@@ -15,17 +15,19 @@ using hotel.Models;
 
 namespace hotel.Controllers.ApiControllers
 {
-    public class SobasController : ApiController
+    public class SobaController : ApiController
     {
         private HotelContext db = new HotelContext();
 
         // GET: api/Sobas
+        [HttpGet]
         public IEnumerable<SobaDto> GetSobas()
         {
             return db.Sobas.Select(Mapper.Map<Soba, SobaDto>).ToList();
         }
 
         // GET: api/Sobas/5
+        [HttpGet]
         [ResponseType(typeof(SobaDto))]
         public IHttpActionResult GetSoba(int id)
         {
@@ -38,7 +40,7 @@ namespace hotel.Controllers.ApiControllers
             return Ok(Mapper.Map<Soba, SobaDto>(soba));
         }
 
-        // PUT: api/Sobas/5
+        // PUT: api/Sobas
         [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutSoba(SobaDto sobaDto)

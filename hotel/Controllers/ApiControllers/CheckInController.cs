@@ -34,10 +34,9 @@ namespace hotel.Controllers.ApiControllers
             return Created(new Uri(Request.RequestUri + "/" + rezervacija.ID), rezervacijaDto);
 
         }
-        //sve checkinane
-        [Route("api/TrenutacniCheckIn")]
+        //sve checkinane        
         [HttpGet]
-        public IEnumerable<RezervacijaDto> GetTrenutacniCheckIn()
+        public IEnumerable<RezervacijaDto> GetCheckIn()
         {
             return db.Rezervacijas.Where(x =>
             (x.DatumOdDolaska != new DateTime(1900, 1, 1)) &&

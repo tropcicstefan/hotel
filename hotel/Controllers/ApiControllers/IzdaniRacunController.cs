@@ -15,12 +15,12 @@ using hotel.Models;
 
 namespace hotel.Controllers.ApiControllers
 {
-    public class IzdaniRacunsController : ApiController
+    public class IzdaniRacunController : ApiController
     {
         private HotelContext db = new HotelContext();
 
 
-        // GET: api/IzdaniRacuns/5(id rezervacije)
+        // GET: api/IzdaniRacun/5(id rezervacije)
         [HttpGet]
         [ResponseType(typeof(PrikazRacunaViewModelDto))]
         public IHttpActionResult GetIzdaniRacun(int id)

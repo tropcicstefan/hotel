@@ -15,43 +15,58 @@ using hotel.Models;
 
 namespace hotel.Controllers.ApiControllers
 {
-    public class StavkePrivremenogRacunaController : ApiController
+    public class PrivremeniRacunStavkaController : ApiController
     {
         private HotelContext db = new HotelContext();
 
-        // GET: api/Stavkes
-        public IEnumerable<StavkeDto> GetStavkes()
+        // GET: api/PrivremeniRacunStavka
+        [HttpGet]
+        public IEnumerable<StavkeDto> GetStavke()
         {
             return db.Stavkes.Select(Mapper.Map<Stavke, StavkeDto>).ToList();
         }
 
-        //// GET: api/Stavkes/5
-        //[ResponseType(typeof(StavkeDto))]
-        //public IHttpActionResult GetStavke(int id)
-        //{
-        //    Stavke stavke = db.Stavkes.Find(id);
-        //    if (stavke == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //stavke specificnog privremenog racuna
+        [HttpGet]
+        [Route("api/PrivremeniRacunStavka/prID/{prID}")]
+        public IHttpActionResult GetStavke(int prID)
+        {
+            if (db.PrivremeniRacuns.Find(prID) is null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(Mapper.Map<Stavke, StavkeDto>(stavke));
-        //}
+            var stavkes = db.Stavkes.Where(x => x.PrivremeniRacunID == prID).ToList();
 
-        // PUT: api/Stavkes/5
+            return Ok(Mapper.Map<List<Stavke>, List<StavkeDto>>(stavkes));
+        }
+
+
+        [HttpGet]
+        [ResponseType(typeof(StavkeDto))]
+        [Route("api/PrivremeniRacunStavka/prId/{prId}/epId/{epId}")]
+        public IHttpActionResult GetStavke(int prId, int epId)
+        {
+            Stavke stavke = db.Stavkes.SingleOrDefault(s => s.PrivremeniRacunID == prId && s.ElementPonudeID == epId);
+            if (stavke == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(Mapper.Map<Stavke, StavkeDto>(stavke));
+        }
+
+        // PUT: api/PrivremeniRacunStavka
+        [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutStavke(int id, StavkeDto stavkeDto)
+        public IHttpActionResult PutStavke(StavkeDto stavkeDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != stavkeDto.PrivremeniRacunID)
-            {
-                return BadRequest();
-            }
-            Stavke stavke = db.Stavkes.SingleOrDefault(s => s.PrivremeniRacunID == id && s.ElementPonudeID == stavkeDto.ElementPonudeID);
+            Stavke stavke = db.Stavkes.SingleOrDefault(s => s.PrivremeniRacunID == stavkeDto.PrivremeniRacunID && s.ElementPonudeID == stavkeDto.ElementPonudeID);
 
             if(stavke is null)
             {
@@ -63,7 +78,8 @@ namespace hotel.Controllers.ApiControllers
             return Ok();
         }
 
-        // POST: api/Stavkes
+        // POST: api/PrivremeniRacunStavka
+        [HttpPost]
         [ResponseType(typeof(StavkeDto))]
         public IHttpActionResult PostStavke(StavkeDto stavkeDto)
         {
@@ -91,13 +107,11 @@ namespace hotel.Controllers.ApiControllers
             
         }
 
-        // DELETE: api/Stavkes/5
-        //jel se u slucaju composite kljuceva pisu custom routes ili????
+        [HttpDelete]
         [ResponseType(typeof(StavkeDto))]
-        [Route("api/Stavkes/PrivremeniRacun/{prId}/ElementPonude/{epId}")]
-        public IHttpActionResult DeleteStavke(int prId, int epId)
+        public IHttpActionResult DeleteStavke(StavkeDto stavkeDto)
         {
-            Stavke stavke = db.Stavkes.SingleOrDefault(s => s.PrivremeniRacunID == prId && s.ElementPonudeID == epId);
+            Stavke stavke = db.Stavkes.SingleOrDefault(s => s.PrivremeniRacunID == stavkeDto.PrivremeniRacunID && s.ElementPonudeID == stavkeDto.ElementPonudeID);
             if (stavke == null)
             {
                 return NotFound();
